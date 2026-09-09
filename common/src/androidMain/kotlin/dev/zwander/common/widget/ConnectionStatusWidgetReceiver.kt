@@ -45,6 +45,7 @@ import dev.zwander.common.model.UserModel
 import dev.zwander.common.model.adapters.BaseAdvancedData
 import dev.zwander.common.model.adapters.BaseCellData
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlinx.coroutines.launch
 
 class ConnectionStatusWidget : GlanceAppWidget() {

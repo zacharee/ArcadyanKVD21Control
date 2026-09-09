@@ -1,51 +1,52 @@
 [versions]
-android-gradle = "8.13.0"
-androidx-activity-compose = "1.10.1"
-androidx-appcompat = "1.7.1"
-androidx-core = "1.17.0"
-androidx-glance-appwidget = "1.1.1"
-appdirs = "1.4.0"
-bugsnag-android = "6.17.0"
-bugsnag-gradle = "1.0.0"
-bugsnag-jvm = "3.8.0"
-buildkonfig-gradle = "0.17.1"
-compose = "1.11.1"
-compose-hot-reload = "1.0.0-beta06"
+android-gradle = "9.4.0"
+androidx-activity-compose = "1.13.0"
+androidx-appcompat = "1.8.0"
+androidx-core = "1.19.0"
+androidx-glance-appwidget = "1.2.0"
+appdirs = "1.5.0"
+bugsnag-android = "6.27.0"
+bugsnag-gradle = "1.2.0"
+bugsnag-jvm = "4.0.1"
+buildkonfig-gradle = "0.22.0"
+compose = "1.12.0"
+compose-hot-reload = "1.2.0"
 composedialog = "0.2.1"
-conveyor = "1.12"
+conveyor = "2.0"
 conveyor-control = "1.1"
 desugar_jdk_libs = "2.1.5"
-filekitCore = "0.10.0"
-githubApi = "1.329"
-google-material = "1.14.0-alpha04"
-jna = "5.17.0"
-jsystemthemedetector = "7dde337429"
+filekitCore = "0.16.0"
+githubApi = "1.330"
+google-material = "1.14.0"
+jna = "5.19.1"
+jsystemthemedetector = "ff1818c9c9"
 kmpfile = "0.8.0"
 kmpplatform = "0.1.0"
-koalaplot = "0.9.1"
+koalaplot = "0.12.1"
 korlibs = "6.0.2"
-kotlin = "2.3.21"
-kotlinx-coroutines = "1.10.2"
+kotlin = "2.4.10"
+kotlinx-coroutines = "1.11.0"
 kotlinx-serialization = "1.11.0"
-kotlinxDatetime = "0.7.1"
+kotlinxDatetime = "0.8.0"
 ksp = "2.3.11"
-kstore = "1.0.0"
-ktor = "3.2.3"
+kstore = "1.1.0"
+ktor = "3.5.2"
 material-icons-core = "1.7.3"
-materialyou = "0.2.9"
+material3 = "1.9.0"
+materialyou = "0.4.0"
 moko-mvvm = "0.16.1"
-moko-resources = "0.26.4"
+moko-resources = "0.27.0"
 multiplatform-settings = "1.3.0"
-multiplatformMarkdownRenderer = "0.36.0-b02"
+multiplatformMarkdownRenderer = "0.45.0"
 nserrorKt = "0.2.0"
-nsexceptionKt = "1.0.3"
+nsexceptionKt = "1.0.11"
 nsexceptionKtBugsnag = "1.0.0-BETA-11"
-oshi = "6.8.3"
+oshi = "7.6.1"
 relinker = "1.4.5"
-room = "2.7.2"
-semver = "3.0.0"
-slf4j = "2.0.17"
-sqlite = "2.5.2"
+room = "2.8.4"
+semver = "3.1.0"
+slf4j = "2.0.19"
+sqlite = "2.7.0"
 taskerpluginlibrary = "0.4.10"
 
 [libraries]
@@ -58,9 +59,16 @@ bugsnag-android = { module = "com.bugsnag:bugsnag-android", version.ref = "bugsn
 bugsnag-jvm = { module = "com.bugsnag:bugsnag", version.ref = "bugsnag-jvm" }
 composedialog = { module = "dev.zwander:composedialog", version.ref = "composedialog" }
 conveyor-control = { module = "dev.hydraulic.conveyor:conveyor-control", version.ref = "conveyor-control" }
+desktop-jvm-linux-arm64 = { module = "org.jetbrains.compose.desktop:desktop-jvm-linux-arm64", version.ref = "compose" }
+desktop-jvm-linux-x64 = { module = "org.jetbrains.compose.desktop:desktop-jvm-linux-x64", version.ref = "compose" }
+desktop-jvm-macos-arm64 = { module = "org.jetbrains.compose.desktop:desktop-jvm-macos-arm64", version.ref = "compose" }
+desktop-jvm-macos-x64 = { module = "org.jetbrains.compose.desktop:desktop-jvm-macos-x64", version.ref = "compose" }
+desktop-jvm-windows-arm64 = { module = "org.jetbrains.compose.desktop:desktop-jvm-windows-arm64", version.ref = "compose" }
+desktop-jvm-windows-x64 = { module = "org.jetbrains.compose.desktop:desktop-jvm-windows-x64", version.ref = "compose" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "desugar_jdk_libs" }
 filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekitCore" }
 filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "filekitCore" }
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose" }
 github-api = { module = "org.kohsuke:github-api", version.ref = "githubApi" }
 google-material = { module = "com.google.android.material:material", version.ref = "google-material" }
 jSystemThemeDetector = { module = "com.github.zacharee:jSystemThemeDetector", version.ref = "jsystemthemedetector" }
@@ -86,6 +94,7 @@ ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 material-icons-core = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons-core" }
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
 moko-mvvm-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "moko-mvvm" }
 moko-mvvm-flow-compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko-mvvm" }
 moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
@@ -101,22 +110,24 @@ oshi-core = { module = "com.github.oshi:oshi-core", version.ref = "oshi" }
 relinker = { module = "com.getkeepsafe.relinker:relinker", version.ref = "relinker" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
 semver = { module = "io.github.z4kn4fein:semver", version.ref = "semver" }
 slf4j-jdk14 = { module = "org.slf4j:slf4j-jdk14", version.ref = "slf4j" }
 sqlite = { module = "androidx.sqlite:sqlite", version.ref = "sqlite" }
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 taskerpluginlibrary = { module = "com.joaomgcd:taskerpluginlibrary", version.ref = "taskerpluginlibrary" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
+ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose" }
 zwander-materialyou = { module = "dev.zwander:materialyou", version.ref = "materialyou" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle" }
-android-library = { id = "com.android.library", version.ref = "android-gradle" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle" }
 bugsnag-gradle = { id = "com.bugsnag.gradle", version.ref = "bugsnag-gradle" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig-gradle" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-hot-reload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose-hot-reload" }
 conveyor = { id = "dev.hydraulic.conveyor", version.ref = "conveyor" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-atomicfu = { id = "org.jetbrains.kotlin.plugin.atomicfu", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

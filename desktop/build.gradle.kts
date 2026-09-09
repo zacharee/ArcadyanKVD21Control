@@ -10,11 +10,11 @@ plugins {
     alias(libs.plugins.compose.hot.reload)
 }
 
-val appVersionName: String by rootProject.extra
-val appPackageName: String by rootProject.extra
-val appGroup: String by rootProject.extra
+val appVersionName = rootProject.extra["appVersionName"].toString()
+val appPackageName = rootProject.extra["appPackageName"].toString()
+val appGroup = rootProject.extra["appGroup"].toString()
 
-val javaVersion: JavaVersion by rootProject.extra
+val javaVersion = rootProject.extra["javaVersion"] as JavaVersion
 
 group = appGroup
 version = appVersionName
@@ -28,7 +28,7 @@ kotlin {
     jvm()
 
     sourceSets {
-        val jvmMain by getting {
+        val jvmMain = getByName("jvmMain") {
             dependencies {
                 implementation(project(":common"))
             }
@@ -85,21 +85,21 @@ tasks.named<hydraulic.conveyor.gradle.WriteConveyorConfigTask>("writeConveyorCon
 
 dependencies {
     // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
-    linuxAmd64(compose.desktop.linux_x64)
-    linuxAarch64(compose.desktop.linux_arm64)
-    macAmd64(compose.desktop.macos_x64)
-    macAarch64(compose.desktop.macos_arm64)
-    windowsAarch64(compose.desktop.windows_arm64)
-    windowsAmd64(compose.desktop.windows_x64)
+    linuxAmd64(libs.desktop.jvm.linux.x64)
+    linuxAarch64(libs.desktop.jvm.linux.arm64)
+    macAmd64(libs.desktop.jvm.macos.x64)
+    macAarch64(libs.desktop.jvm.macos.arm64)
+    windowsAarch64(libs.desktop.jvm.windows.arm64)
+    windowsAmd64(libs.desktop.jvm.windows.x64)
 }
 
-// region Work around temporary Compose bugs.
-configurations.all {
-    attributes {
-        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
-        attribute(Attribute.of("ui", String::class.java), "awt")
-    }
-}
+//// region Work around temporary Compose bugs.
+//configurations.all {
+//    attributes {
+//        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
+//        attribute(Attribute.of("ui", String::class.java), "awt")
+//    }
+//}
 
 tasks.withType<ComposeHotRun>().configureEach {
     mainClass.set("MainKt")

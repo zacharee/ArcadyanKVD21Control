@@ -26,6 +26,7 @@ import dev.zwander.common.model.GlobalModel
 import dev.zwander.common.model.SettingsModel
 import dev.zwander.common.util.moveFocusOnTab
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody

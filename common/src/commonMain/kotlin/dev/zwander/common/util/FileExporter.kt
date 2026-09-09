@@ -14,7 +14,10 @@ object FileExporter {
         val extension = fileName.slice(dotIndex + 1 until fileName.length)
 
         val result = withContext(Dispatchers.Main) {
-            FileKit.openFileSaver(suggestedName = baseName, extension = extension)
+            FileKit.openFileSaver(
+                suggestedName = baseName,
+                defaultExtension = extension,
+            )
         }
 
         return result?.toKmpFile()?.openOutputStream(append)

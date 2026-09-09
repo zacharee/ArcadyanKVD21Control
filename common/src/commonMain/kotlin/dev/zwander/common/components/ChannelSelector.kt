@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import dev.icerock.moko.resources.compose.stringResource
 import dev.zwander.common.data.WiFiBand
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 

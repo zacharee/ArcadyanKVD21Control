@@ -24,6 +24,7 @@ import dev.zwander.common.model.MainModel
 import dev.zwander.common.model.adapters.BaseClientData
 import dev.zwander.common.util.bulletedList
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 

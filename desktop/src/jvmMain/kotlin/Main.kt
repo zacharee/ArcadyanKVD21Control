@@ -33,6 +33,7 @@ import dev.zwander.common.util.jna.Kernel32
 import dev.zwander.compose.alertdialog.LocalWindowDecorations
 import dev.zwander.compose.rememberThemeInfo
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import io.github.mimoguz.customwindow.DwmAttribute
 import io.github.mimoguz.customwindow.WindowHandle
 import korlibs.platform.Platform
@@ -65,22 +66,23 @@ fun main() {
     val oshiSystemInfo = SystemInfo()
 
     bugsnag.setAppVersion(GradleConfig.versionName)
-    bugsnag.addCallback {
+    bugsnag.addOnError {
         it.setUserId(uuid)
-        it.addToTab("device", "manufacturer", oshiSystemInfo.hardware.computerSystem.manufacturer)
-        it.addToTab("device", "model", oshiSystemInfo.hardware.computerSystem.model)
-        it.addToTab("device", "memory", oshiSystemInfo.hardware.memory.total)
-        it.addToTab("device", "motherboard", oshiSystemInfo.hardware.computerSystem.baseboard.model)
-        it.addToTab("device", "firmwareVersion", oshiSystemInfo.hardware.computerSystem.firmware.version)
-        it.addToTab("device", "processorModel", oshiSystemInfo.hardware.processor.processorIdentifier.model)
-        it.addToTab("device", "processorFamily", oshiSystemInfo.hardware.processor.processorIdentifier.family)
-        it.addToTab("device", "processorName", oshiSystemInfo.hardware.processor.processorIdentifier.name)
-        it.addToTab("app", "version_code", GradleConfig.versionCode)
-        it.addToTab("app", "jdk_architecture", System.getProperty("sun.arch.data.model"))
+        it.addMetadata("device", "manufacturer", oshiSystemInfo.hardware.computerSystem.manufacturer)
+        it.addMetadata("device", "model", oshiSystemInfo.hardware.computerSystem.model)
+        it.addMetadata("device", "memory", oshiSystemInfo.hardware.memory.total)
+        it.addMetadata("device", "motherboard", oshiSystemInfo.hardware.computerSystem.baseboard.model)
+        it.addMetadata("device", "firmwareVersion", oshiSystemInfo.hardware.computerSystem.firmware.version)
+        it.addMetadata("device", "processorModel", oshiSystemInfo.hardware.processor.processorIdentifier.model)
+        it.addMetadata("device", "processorFamily", oshiSystemInfo.hardware.processor.processorIdentifier.family)
+        it.addMetadata("device", "processorName", oshiSystemInfo.hardware.processor.processorIdentifier.name)
+        it.addMetadata("app", "version_code", GradleConfig.versionCode)
+        it.addMetadata("app", "jdk_architecture", System.getProperty("sun.arch.data.model"))
 
         CrossPlatformBugsnag.generateExtraErrorData().forEach { data ->
-            it.addToTab(data.tabName, data.key, data.value)
+            it.addMetadata(data.tabName, data.key, data.value)
         }
+        true
     }
 
     bugsnag.setAutoCaptureSessions(true)

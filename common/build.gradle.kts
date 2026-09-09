@@ -7,26 +7,56 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.moko.resources)
     alias(libs.plugins.buildkonfig)
     alias(libs.plugins.room)
     alias(libs.plugins.ksp)
 }
 
-val appVersionCode: Int by rootProject.extra
-val androidMinSdk: Int by rootProject.extra
-val androidCompileSdk: Int by rootProject.extra
+val appVersionCode = rootProject.extra["appVersionCode"].toString().toInt()
+val androidMinSdk = rootProject.extra["androidMinSdk"].toString().toInt()
+val androidCompileSdk = rootProject.extra["androidCompileSdk"].toString().toInt()
+val androidTargetSdk = rootProject.extra["androidTargetSdk"].toString().toInt()
 
-val appVersionName: String by rootProject.extra
-val appPackageName: String by rootProject.extra
+val appVersionName = rootProject.extra["appVersionName"].toString()
+val appPackageName = rootProject.extra["appPackageName"].toString()
 
-val javaVersion: JavaVersion by rootProject.extra
+val javaVersion = rootProject.extra["javaVersion"] as JavaVersion
 
 version = appVersionName
 
 kotlin {
-    androidTarget()
+    android {
+        namespace = "dev.zwander.common"
+
+        compileSdk = androidCompileSdk
+        minSdk = androidMinSdk
+
+//        sourceSets {
+//            getByName("main") {
+//                manifest.srcFile("src/androidMain/AndroidManifest.xml")
+//                java.srcDirs("build/generated/moko/androidMain/src")
+//            }
+//        }
+
+//        defaultConfig {
+//            minSdk = androidMinSdk
+//            resValue("string", "app_name", "${rootProject.extra["appName"]}")
+//        }
+//        compileOptions {
+//            sourceCompatibility = javaVersion
+//            targetCompatibility = javaVersion
+//            isCoreLibraryDesugaringEnabled = true
+//        }
+        lint {
+            abortOnError = false
+            targetSdk = androidTargetSdk
+        }
+//        buildFeatures {
+//            buildConfig = true
+//        }
+    }
     jvm("desktop")
 
     val iosArm64 = iosArm64()
@@ -86,12 +116,12 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
+        val commonMain = getByName("commonMain") {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
+                implementation(libs.runtime)
+                implementation(libs.foundation)
+                implementation(libs.material3)
+                implementation(libs.ui)
 
                 api(libs.moko.resources)
                 api(libs.moko.resources.compose)
@@ -128,11 +158,11 @@ kotlin {
                 api(libs.multiplatform.markdown.renderer.m3)
             }
         }
-        val nonAppleMain by creating {
+        val nonAppleMain = create("nonAppleMain") {
             dependsOn(commonMain)
         }
 
-        val androidMain by getting {
+        val androidMain = getByName("androidMain") {
             dependsOn(nonAppleMain)
             dependencies {
                 api(libs.androidx.appcompat)
@@ -150,14 +180,14 @@ kotlin {
                 api(libs.github.api)
             }
         }
-        val skiaMain by creating {
+        val skiaMain = create("skiaMain") {
             dependsOn(commonMain)
         }
-        val desktopMain by getting {
+        val desktopMain = getByName("desktopMain") {
             dependsOn(skiaMain)
             dependsOn(nonAppleMain)
             dependencies {
-                api(compose.preview)
+                api(libs.ui.tooling.preview)
                 api(compose.desktop.currentOs)
 
                 api(libs.ktor.client.okhttp)
@@ -172,7 +202,7 @@ kotlin {
             }
         }
 
-        val darwinMain by creating {
+        val darwinMain = create("darwinMain") {
             dependsOn(skiaMain)
             dependencies {
                 api(libs.ktor.client.darwin)
@@ -182,46 +212,17 @@ kotlin {
             }
         }
 
-        val iosArm64Main by getting {
+        val iosArm64Main = getByName("iosArm64Main") {
             resources.srcDirs("build/generated/moko/iosArm64Main/src")
         }
-        val iosSimulatorArm64Main by getting {
+        val iosSimulatorArm64Main = getByName("iosSimulatorArm64Main") {
             resources.srcDirs("build/generated/moko/iosSimulatorArm64Main/src")
         }
-        val iosMain by creating {
+        val iosMain = create("iosMain") {
             dependsOn(darwinMain)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
         }
-    }
-}
-
-android {
-    namespace = "dev.zwander.common"
-
-    compileSdk = androidCompileSdk
-
-    sourceSets {
-        getByName("main") {
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            java.srcDirs("build/generated/moko/androidMain/src")
-        }
-    }
-
-    defaultConfig {
-        minSdk = androidMinSdk
-        resValue("string", "app_name", "${rootProject.extra["appName"]}")
-    }
-    compileOptions {
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-        isCoreLibraryDesugaringEnabled = true
-    }
-    lint {
-        abortOnError = false
-    }
-    buildFeatures {
-        buildConfig = true
     }
 }
 

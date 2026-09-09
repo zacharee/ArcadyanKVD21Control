@@ -28,6 +28,7 @@ import dev.zwander.common.model.SettingsModel
 import dev.zwander.common.util.UrlHandler
 import dev.zwander.common.util.animatePlacement
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 private data class SocialIconData(
     val img: ImageResource,

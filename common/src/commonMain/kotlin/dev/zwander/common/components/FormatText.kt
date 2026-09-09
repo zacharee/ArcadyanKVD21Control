@@ -40,6 +40,7 @@ import com.mikepenz.markdown.m3.Markdown
 import dev.icerock.moko.resources.compose.stringResource
 import dev.zwander.compose.alertdialog.InWindowAlertDialog
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 

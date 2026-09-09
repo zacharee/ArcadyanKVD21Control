@@ -7,6 +7,7 @@ import dev.zwander.common.components.InfoRow
 import dev.zwander.common.data.generateInfoList
 import dev.zwander.common.data.set
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 @Composable
 fun Credits() {

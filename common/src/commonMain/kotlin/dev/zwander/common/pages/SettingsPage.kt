@@ -28,6 +28,7 @@ import dev.zwander.common.components.settings.Updater
 import dev.zwander.common.components.settings.WidgetRefresh
 import dev.zwander.common.util.UpdateUtil
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import korlibs.platform.Platform
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC

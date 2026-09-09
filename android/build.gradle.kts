@@ -12,21 +12,20 @@ import org.objectweb.asm.FieldVisitor
 plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.atomicfu)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.bugsnag.gradle)
 }
 
-val appVersionCode: Int by rootProject.extra
-val androidMinSdk: Int by rootProject.extra
-val androidTargetSdk: Int by rootProject.extra
-val androidCompileSdk: Int by rootProject.extra
+val appVersionCode = rootProject.extra["appVersionCode"].toString().toInt()
+val androidMinSdk = rootProject.extra["androidMinSdk"].toString().toInt()
+val androidTargetSdk = rootProject.extra["androidTargetSdk"].toString().toInt()
+val androidCompileSdk = rootProject.extra["androidCompileSdk"].toString().toInt()
 
-val appVersionName: String by rootProject.extra
-val appPackageName: String by rootProject.extra
+val appVersionName = rootProject.extra["appVersionName"].toString()
+val appPackageName = rootProject.extra["appPackageName"].toString()
 
-val javaVersion: JavaVersion by rootProject.extra
+val javaVersion = rootProject.extra["javaVersion"] as JavaVersion
 
 android {
     namespace = appPackageName
@@ -38,8 +37,6 @@ android {
         targetSdk = androidTargetSdk
         versionCode = appVersionCode
         versionName = appVersionName
-
-        setProperty("archivesBaseName", "HINT_Control_$versionName")
     }
     packaging {
         resources.excludes.add("META-INF/AL2.0")
@@ -110,6 +107,12 @@ class FieldSkippingClassVisitor(
     abstract class Parameters : InstrumentationParameters {
         @get:Input
         abstract val classes: SetProperty<String>
+    }
+}
+
+afterEvaluate {
+    base {
+        archivesName.set("HINT_Control_${android.defaultConfig.versionName}")
     }
 }
 

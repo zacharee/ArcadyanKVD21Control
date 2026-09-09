@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.stringResource
 import dev.zwander.common.util.UpdateUtil
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch

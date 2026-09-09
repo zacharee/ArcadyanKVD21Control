@@ -15,6 +15,7 @@ import dev.icerock.moko.resources.compose.stringResource
 import dev.zwander.common.components.TextSwitch
 import dev.zwander.common.model.SettingsModel
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 @Composable
 fun AutoRefresh() {

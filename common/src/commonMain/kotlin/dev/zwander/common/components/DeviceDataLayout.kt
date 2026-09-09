@@ -13,6 +13,7 @@ import dev.zwander.common.data.generateInfoList
 import dev.zwander.common.data.set
 import dev.zwander.common.model.MainModel
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import korlibs.util.format
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC

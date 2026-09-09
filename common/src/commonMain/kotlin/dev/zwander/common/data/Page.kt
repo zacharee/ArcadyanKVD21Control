@@ -14,6 +14,7 @@ import dev.zwander.common.model.MainModel
 import dev.zwander.common.pages.*
 import dev.zwander.common.util.Storage
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 sealed class Page(
     val titleRes: StringResource,

@@ -23,6 +23,7 @@ import dev.zwander.common.model.adapters.EncryptionVersions
 import dev.zwander.common.model.adapters.SSIDConfig
 import dev.zwander.compose.alertdialog.InWindowAlertDialog
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dev.icerock.moko.resources.compose.stringResource
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 @Composable
 fun ExpanderCard(

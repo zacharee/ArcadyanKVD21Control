@@ -21,6 +21,7 @@ import dev.zwander.common.model.adapters.BaseCellData
 import dev.zwander.common.model.adapters.CellDataLTE
 import dev.zwander.common.util.bulletedList
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 

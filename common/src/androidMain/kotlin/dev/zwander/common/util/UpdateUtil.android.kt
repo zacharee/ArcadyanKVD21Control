@@ -93,6 +93,6 @@ actual object UpdateUtil {
             signature.toByteArray().sha256().hexUpper == githubSha256
         }
 
-        return (matchesSignature == true && installSource != "com.android.vending") || dev.zwander.common.BuildConfig.DEBUG
+        return (matchesSignature == true && installSource != "com.android.vending")
     }
 }

@@ -16,6 +16,7 @@ import dev.zwander.common.components.SelectableDropdownMenuItem
 import dev.zwander.common.data.Page
 import dev.zwander.common.model.SettingsModel
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 @Composable
 fun ColumnScope.DefaultPage() {

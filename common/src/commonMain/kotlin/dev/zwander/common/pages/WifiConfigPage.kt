@@ -31,6 +31,7 @@ import dev.zwander.common.model.GlobalModel
 import dev.zwander.common.model.MainModel
 import dev.zwander.compose.alertdialog.InWindowAlertDialog
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import kotlinx.coroutines.launch
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC

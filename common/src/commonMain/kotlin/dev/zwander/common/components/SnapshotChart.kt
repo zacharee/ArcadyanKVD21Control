@@ -10,6 +10,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipAnchorPosition
 import androidx.compose.material3.TooltipBox
 import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
@@ -37,19 +38,25 @@ import dev.zwander.common.util.invoke
 import dev.zwander.common.util.nullableMaxOf
 import dev.zwander.common.util.nullableMinOf
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.gestures.GestureConfig
 import io.github.koalaplot.core.legend.FlowLegend
 import io.github.koalaplot.core.legend.LegendLocation
 import io.github.koalaplot.core.line.LinePlot
+import io.github.koalaplot.core.style.Axis
 import io.github.koalaplot.core.style.LineStyle
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
+import io.github.koalaplot.core.xygraph.AxisContent
+import io.github.koalaplot.core.xygraph.GridStyle
 import io.github.koalaplot.core.xygraph.IntLinearAxisModel
 import io.github.koalaplot.core.xygraph.LongLinearAxisModel
 import io.github.koalaplot.core.xygraph.Point
 import io.github.koalaplot.core.xygraph.XYGraph
 import io.github.koalaplot.core.xygraph.XYGraphScope
+import io.github.koalaplot.core.xygraph.rememberAxisContent
 import io.github.koalaplot.core.xygraph.rememberAxisStyle
+import io.github.koalaplot.core.xygraph.rememberGridStyle
 import korlibs.platform.Platform
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
@@ -72,8 +79,9 @@ private data class ChartData(
             lineStyle = LineStyle(brush = SolidColor(color), strokeWidth = 1.dp),
             symbol = {
                 TooltipBox(
-                    positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(
-                        spacingBetweenTooltipAndAnchor = 4.dp
+                    positionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+                        spacingBetweenTooltipAndAnchor = 4.dp,
+                        positioning = TooltipAnchorPosition.Above,
                     ),
                     state = rememberTooltipState(),
                     tooltip = {
@@ -87,25 +95,32 @@ private data class ChartData(
                     },
                     enableUserInput = Platform.isAndroid || Platform.isIos,
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(6.dp)
-                            .background(color = color, CircleShape)
-                            .hoverableElement {
-                                Box(
-                                    modifier = Modifier
-                                        .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
-                                        .padding(4.dp),
-                                    contentAlignment = Alignment.Center,
-                                ) {
-                                    Text(
-                                        text = it.y.toString(),
-                                        fontSize = 12.sp,
-                                        lineHeight = 12.sp,
-                                    )
-                                }
-                            },
-                    )
+                    TooltipBox(
+                        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(
+                            positioning = TooltipAnchorPosition.Above,
+                        ),
+                        tooltip = {
+                            Box(
+                                modifier = Modifier
+                                    .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
+                                    .padding(4.dp),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Text(
+                                    text = it.y.toString(),
+                                    fontSize = 12.sp,
+                                    lineHeight = 12.sp,
+                                )
+                            }
+                        },
+                        state = rememberTooltipState(),
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(color = color, CircleShape),
+                        )
+                    }
                 }
             },
         )
@@ -329,37 +344,41 @@ fun SnapshotChart(
         XYGraph(
             xAxisModel = xAxisModel,
             yAxisModel = yAxisModel,
-            xAxisLabels = {
-                val seconds = (maxXDateTime - Instant.fromEpochMilliseconds(it + minX)).inWholeSeconds
-                Text(
-                    text = MR.strings.graph_seconds_format(seconds),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 12.sp,
-                        lineHeight = 12.sp,
-                    ),
-                    modifier = Modifier.padding(top = 2.dp),
-                )
-            },
-            yAxisLabels = {
-                Text(
-                    text = it.toString(),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontSize = 12.sp,
-                        lineHeight = 12.sp,
-                    ),
-                )
-            },
-            verticalMinorGridLineStyle = null,
-            horizontalMinorGridLineStyle = null,
-            yAxisStyle = rememberAxisStyle(labelRotation = 90),
+            xAxisContent = rememberAxisContent(
+                labels = {
+                    val seconds = (maxXDateTime - Instant.fromEpochMilliseconds(it + minX)).inWholeSeconds
+                    Text(
+                        text = MR.strings.graph_seconds_format(seconds),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 12.sp,
+                            lineHeight = 12.sp,
+                        ),
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                },
+            ),
+            yAxisContent = rememberAxisContent(
+                labels = {
+                    Text(
+                        text = it.toString(),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontSize = 12.sp,
+                            lineHeight = 12.sp,
+                        ),
+                    )
+                },
+            ),
+            gridStyle = rememberGridStyle(
+                horizontalMinorStyle = null,
+                verticalMinorStyle = null,
+            ),
             content = {
                 chartDataItems.values.forEach { item ->
                     with(item) { Plot() }
                 }
             },
-            xAxisTitle = {},
             gestureConfig = GestureConfig(
                 panXEnabled = !autoRefresh,
                 zoomXEnabled = !autoRefresh,

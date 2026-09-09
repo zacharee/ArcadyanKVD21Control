@@ -54,15 +54,14 @@ actual object BugsnagUtils {
 
     @Synchronized
     actual fun notify(e: Throwable) {
-        val report = bugsnag.buildReport(e)
-
-        breadcrumbs.forEach { (time, data) ->
-            report.addToTab("breadcrumbs", "$time", "${data.first.stripSensitive()}\n\n" +
-                    data.second.entries.joinToString("\n") { "${it.key}=${it.value?.toString()?.stripSensitive()}" })
+        bugsnag.notify(e) { event ->
+            breadcrumbs.forEach { (time, data) ->
+                event.addMetadata("breadcrumbs", "$time", "${data.first.stripSensitive()}\n\n" +
+                        data.second.entries.joinToString("\n") { "${it.key}=${it.value?.toString()?.stripSensitive()}" })
+            }
+            breadcrumbs.clear()
+            true
         }
-        breadcrumbs.clear()
-
-        bugsnag.notify(report)
     }
 
     actual fun addBreadcrumb(

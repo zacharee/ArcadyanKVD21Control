@@ -1,27 +1,26 @@
-val androidCompileSdk by extra(36)
-val androidTargetSdk by extra(36)
-val androidMinSdk by extra(24)
-val javaVersion by extra(JavaVersion.VERSION_21)
+extra["androidCompileSdk"] = 37
+extra["androidTargetSdk"] = 37
+extra["androidMinSdk"] = 24
+extra["javaVersion"] = JavaVersion.VERSION_21
 
-val appVersionCode by extra(56)
-val appVersionName by extra("1.16.0")
+extra["appVersionCode"] = 56
+extra["appVersionName"] = "1.16.0"
 
-val appGroup by extra("dev.zwander")
-val appPackageName by extra("dev.zwander.arcadyankvd21control")
-val appName by extra("HINT Control")
+extra["appGroup"] = "dev.zwander"
+extra["appPackageName"] = "dev.zwander.arcadyankvd21control"
+extra["appName"] = "HINT Control"
 
 plugins {
     alias(libs.plugins.kotlin.native.cocoapods) apply false
     alias(libs.plugins.moko.resources) apply false
     alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.buildkonfig) apply false
     alias(libs.plugins.kotlin.atomicfu) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose) apply false
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.conveyor) apply false
     alias(libs.plugins.bugsnag.gradle) apply false
     alias(libs.plugins.compose.hot.reload) apply false

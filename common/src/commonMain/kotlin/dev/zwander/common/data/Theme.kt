@@ -2,6 +2,7 @@ package dev.zwander.common.data
 
 import dev.icerock.moko.resources.StringResource
 import dev.zwander.resources.common.MR
+import dev.zwander.resources.common.*
 
 enum class Theme(
     val label: StringResource,
