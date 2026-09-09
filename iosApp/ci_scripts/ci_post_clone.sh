@@ -5,7 +5,7 @@
 
 brew install cocoapods
 
-curl -s "https://get.sdkman.io" | bash
+curl -s "https://get.sdkman.io" | zsh
 . "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install java 21.0.7-ms
 
