@@ -5,6 +5,7 @@ package dev.zwander.common.util
 import dev.zwander.common.exceptions.InvalidJSONException
 import dev.zwander.common.model.GlobalModel
 import dev.zwander.common.model.UserModel
+import dev.zwander.common.util.HttpUtils.stripSensitive
 import kotlinx.serialization.StringFormat
 import kotlinx.serialization.serializer
 
@@ -13,7 +14,7 @@ suspend inline fun <reified T> StringFormat.decodeFromString(string: String?): T
         decodeFromString(serializersModule.serializer(), string ?: "{}")
     } catch (e: kotlinx.serialization.json.internal.JsonDecodingException) {
         GlobalModel.updateHttpError(
-            InvalidJSONException("Invalid JSON: $string", e),
+            InvalidJSONException("Invalid JSON: ${string}", e),
         )
 
         // If there's a JSON exception, we may have somehow chosen the wrong client.

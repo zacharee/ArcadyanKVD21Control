@@ -3,6 +3,7 @@
 package dev.zwander.common.util
 
 import com.bugsnag.Bugsnag
+import dev.zwander.common.util.HttpUtils.stripSensitive
 
 actual object BugsnagUtils {
     val bugsnag by lazy { Bugsnag("e709115241c5468fd88637578daa5cfa") }
@@ -14,8 +15,8 @@ actual object BugsnagUtils {
         val report = bugsnag.buildReport(e)
 
         breadcrumbs.forEach { (time, data) ->
-            report.addToTab("breadcrumbs", "$time", "${data.first}\n\n" +
-                    data.second.entries.joinToString("\n") { "${it.key}==${it.value}" })
+            report.addToTab("breadcrumbs", "$time", "${data.first.stripSensitive()}\n\n" +
+                    data.second.entries.joinToString("\n") { "${it.key}=${it.value?.toString()?.stripSensitive()}" })
         }
         breadcrumbs.clear()
 

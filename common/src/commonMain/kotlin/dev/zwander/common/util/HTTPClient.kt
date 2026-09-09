@@ -679,7 +679,7 @@ interface HTTPClient {
         if (!status.isSuccess()) {
             val items = mutableListOf(status.description)
 
-            items.add(this.formatForReport().map { "${it.key}==${it.value}" }.joinToString("\n", "{", "}"))
+            items.add(this.formatForReport().map { "${it.key}=${it.value}" }.joinToString("\n", "{", "}"))
 
             val body = bodyAsText()
             if (body.isNotBlank()) {
