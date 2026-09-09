@@ -260,31 +260,41 @@ room {
 }
 
 afterEvaluate {
-    try {
-        providers.exec {
-            commandLine(
-                "plutil",
-                "-replace",
-                "CFBundleShortVersionString",
-                "-string",
-                appVersionName,
-                "../iosApp/iosApp/Info.plist",
-            )
-        }
-    } catch (_: Throwable) {
+    val setVersionName = providers.exec {
+        isIgnoreExitValue = true
+
+        commandLine(
+            "/usr/bin/plutil",
+            "-replace",
+            "CFBundleShortVersionString",
+            "-string",
+            appVersionName,
+            "${rootProject.layout.projectDirectory.asFile.absolutePath}/iosApp/iosApp/Info.plist",
+        )
+    }
+
+    val setVersionCode = providers.exec {
+        isIgnoreExitValue = true
+
+        commandLine(
+            "/usr/bin/plutil",
+            "-replace",
+            "CFBundleVersion",
+            "-string",
+            "$appVersionCode",
+            "${rootProject.layout.projectDirectory.asFile.absolutePath}/iosApp/iosApp/Info.plist",
+        )
     }
 
     try {
-        providers.exec {
-            commandLine(
-                "plutil",
-                "-replace",
-                "CFBundleVersion",
-                "-string",
-                "$appVersionCode",
-                "../iosApp/iosApp/Info.plist",
-            )
+        setVersionName.result.get()
+        setVersionCode.result.get()
+
+        setVersionName.standardError.asText.get().takeIf { it.isNotBlank() }?.let {
+            println(it)
         }
-    } catch (_: Throwable) {
-    }
+        setVersionCode.standardError.asText.get().takeIf { it.isNotBlank() }?.let {
+            println(it)
+        }
+    } catch (_: Throwable) {}
 }

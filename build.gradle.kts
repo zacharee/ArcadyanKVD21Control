@@ -3,8 +3,8 @@ extra["androidTargetSdk"] = 37
 extra["androidMinSdk"] = 24
 extra["javaVersion"] = JavaVersion.VERSION_21
 
-extra["appVersionCode"] = 56
-extra["appVersionName"] = "1.16.0"
+extra["appVersionCode"] = 57
+extra["appVersionName"] = "1.17.0"
 
 extra["appGroup"] = "dev.zwander"
 extra["appPackageName"] = "dev.zwander.arcadyankvd21control"
