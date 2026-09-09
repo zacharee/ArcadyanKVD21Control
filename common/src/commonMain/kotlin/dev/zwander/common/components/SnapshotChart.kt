@@ -77,7 +77,7 @@ private data class ChartData(
                     ),
                     state = rememberTooltipState(),
                     tooltip = {
-                        PlainTooltip(caretSize = TooltipDefaults.caretSize) {
+                        PlainTooltip(caretShape = TooltipDefaults.caretShape()) {
                             Text(
                                 text = it.y.toString(),
                                 fontSize = 12.sp,

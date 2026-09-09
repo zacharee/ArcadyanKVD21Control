@@ -171,6 +171,9 @@ object Storage {
         encodeDefaults = true
         coerceInputValues = true
         allowTrailingComma = true
+        // Decoding exceptions otherwise embed a raw snippet of the input JSON,
+        // which may contain credentials/tokens.
+        exceptionsWithDebugInfo = false
     }
 
     @Deprecated("Use [snapshotsDb] instead.")

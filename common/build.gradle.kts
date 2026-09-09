@@ -249,7 +249,7 @@ buildkonfig {
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-    configurations.filter { it.name.startsWith("ksp") }.forEach {
+    configurations.filter { it.name.startsWith("ksp") && it.name != "ksp" }.forEach {
         add(it.name, libs.room.compiler)
     }
 }

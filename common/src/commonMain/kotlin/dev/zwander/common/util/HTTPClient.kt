@@ -39,6 +39,7 @@ import dev.zwander.common.model.adapters.nokia.SetWifiConfig
 import dev.zwander.common.model.adapters.nokia.StatisticsInfo
 import dev.zwander.common.model.adapters.nokia.WifiListing
 import dev.zwander.common.util.HttpUtils.formatForReport
+import dev.zwander.common.util.HttpUtils.stripSensitive
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -683,7 +684,7 @@ interface HTTPClient {
 
             val body = bodyAsText()
             if (body.isNotBlank()) {
-                items.add(body)
+                items.add(body.stripSensitive())
             }
 
             val message = items.joinToString("\n")
@@ -706,10 +707,14 @@ private object NokiaClient : HTTPClient {
     override val unauthedClient: HttpClient
         get() = CommonClients.unauthedClient
 
+    @OptIn(ExperimentalSerializationApi::class)
     private val json = Json {
         ignoreUnknownKeys = true
         coerceInputValues = true
         isLenient = true
+        // Decoding exceptions otherwise embed a raw snippet of the input JSON,
+        // which may contain credentials/tokens.
+        exceptionsWithDebugInfo = false
     }
 
     override suspend fun logIn(username: String, password: String, rememberCredentials: Boolean) {
@@ -1058,6 +1063,9 @@ private object UnifiedClient : HTTPClient {
     private val json = Json {
         ignoreUnknownKeys = true
         allowTrailingComma = true
+        // Decoding exceptions otherwise embed a raw snippet of the input JSON,
+        // which may contain credentials/tokens.
+        exceptionsWithDebugInfo = false
     }
 
     override suspend fun logIn(username: String, password: String, rememberCredentials: Boolean) {
