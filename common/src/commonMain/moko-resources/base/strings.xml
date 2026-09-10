@@ -242,4 +242,10 @@
     <string name="rsrp_helper_text">RSRP stands for Received Signal Reference Power and generally provides a more accurate signal strength measurement for LTE and 5G than RSSI. This value will mostly be within the range of -144 and -44, where -44 is strongest. Anything above -110 is generally considered good.</string>
     <string name="cqi_index_helper_text">CQI stands for Channel Quality Indicator. The CQI Table Index represents the index of the table found in 3GPP TS 136.213 section 7.2.3. The index value can range from 1-15, with 15 indicating the best quality. Note that this is different from QCI (QoS Class Indicator), which the T-Mobile gateways do not report.</string>
     <string name="status_helper_text">Denotes the current connection status of the gateway to this cell.</string>
+
+    <string name="local_network_permission">Local Network Access</string>
+    <string name="local_network_permission_desc">HINT Control requires access to the local network to connect to your gateway. Please grant the permission on the next screen.</string>
+
+    <string name="close_app">Close App</string>
+    <string name="grant">Grant</string>
 </resources>
