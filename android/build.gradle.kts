@@ -51,6 +51,7 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        resValues = true
     }
     flavorDimensions += "version"
     productFlavors {
