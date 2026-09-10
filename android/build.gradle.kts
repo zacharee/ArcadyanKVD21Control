@@ -37,6 +37,8 @@ android {
         targetSdk = androidTargetSdk
         versionCode = appVersionCode
         versionName = appVersionName
+
+        resValue("string", "app_name", "${rootProject.extra["appName"]}")
     }
     packaging {
         resources.excludes.add("META-INF/AL2.0")
